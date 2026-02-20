@@ -1,4 +1,6 @@
 import BannerImageSection from "./components/home/BannerImagesSec";
+import CategoriesSection from "./components/home/CategoriesSec";
+import ReviewsSection from "./components/home/ReviewSection";
 import Navbar from "./components/shared/Navbar";
 
 export default function Home() {
@@ -14,6 +16,10 @@ export default function Home() {
         </h1>
         {/* Banner images section */}
         <BannerImageSection/>
+        {/* Categories section */}
+         <CategoriesSection/>
+        {/* Review Section */}
+        <ReviewsSection/>
       </main>
     </div>
   );
