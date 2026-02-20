@@ -1,37 +1,20 @@
-import Image from "next/image";
+import BannerImageSection from "./components/home/BannerImagesSec";
+import Navbar from "./components/shared/Navbar";
 
 export default function Home() {
   return (
-   <div>
-      {/* Navbar */}
-
-      {/* <Navbar /> */}
-      <main className="sticky bg-white z-30 -mb-46 rounded-b-[60px]">
-        {/* banner title section */}
-        {/* <BannerTitle /> */}
-
-        {/* Circle image gallery section */}
-        {/* <CircleImageGallery /> */}
-
-        {/* <StackImageGallery /> */}
-
-        {/* hero spinner section */}
-        {/* <SophisticatedImagesGallery /> */}
-
-        {/* Ready Automate section */}
-        {/* <ReadyAutomateSection /> */}
-
-        {/* FAQ Section */}
-        {/* <FAQAccordion /> */}
-        {/* Floating button of 50% off */}
-        {/* <AppButton
-          className="fixed bottom-3 right-3 rounded-sm! font-semibold px-6 py-3 z-50"
-          title="Get 50% OFF"
-        /> */}
+    <div className="max-w-330 w-full mx-auto">
+      <Navbar />
+      <main className="mt-22 xl:mt-36">
+        {/* Banner Title */}
+        <h1 className="uppercase font-bold text-[60px] sm:text-7xl md:text-9xl xl:text-[212px] flex justify-between w-full">
+          <span>Do</span>
+          <span>it</span>
+          <span className="text-[#4A69E2]">right</span>
+        </h1>
+        {/* Banner images section */}
+        <BannerImageSection/>
       </main>
-
-      {/* Footer section */}
-      {/* <Footer /> */}
     </div>
   );
 }

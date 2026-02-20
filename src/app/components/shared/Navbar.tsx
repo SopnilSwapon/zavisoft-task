@@ -1,9 +1,17 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { ImCancelCircle } from "react-icons/im";
+
+import { IoMdMenu } from "react-icons/io";
+
 import Image from "next/image";
-import AppButton from "./common/AppButton";
+import AppButton from "./AppButton";
+import { MdOutlineArrowDropDown } from "react-icons/md";
+import { FiSearch, FiUser } from "react-icons/fi";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { FaUser } from "react-icons/fa";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -11,31 +19,22 @@ export default function Navbar() {
   const [templateOpen, setTemplateOpen] = useState(false);
 
   return (
-    <nav className="fixed mx-auto w-full top-4 z-50">
-      <nav className="max-w-[754px] text-[15px] bg-[#FBFBFB] border-1 border-[#adadad33] rounded-[8px] mx-auto flex items-center justify-between p-[6px] my-3">
-        {/* Brand */}
-        <Link href="/" className="flex items-center pl-3">
-          <Image
-            src="https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67ea1567f801b7bf3d63fad7_zuno-logo-b.svg"
-            alt="Brand Logo"
-            width={53}
-            height={18}
-          />
-        </Link>
-
+    <nav className="fixed max-w-330 w-full md:h-16 xl:h-24 h-13 top-4 md:top-6 xl:top-8 z-50">
+      <nav className="text-[15px] w-full bg-[#FFFFFF] border-1 p-4 md:p-6 xl:p-8 border-[#adadad33] rounded-[8px] mx-auto flex items-center justify-between">
+        
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 items-center">
-          <Link href="/" className="hover:text-gray-500">
-            Home
+        <div className="hidden md:flex space-x-10 items-center">
+          <Link href="/" className="hover:text-gray-900 text-[16px] text-[#232321] font-semibold">
+             New Drops 🔥
           </Link>
 
           {/* Dropdown Pages */}
           <div className="relative">
             <button
               onClick={() => setPagesOpen(!pagesOpen)}
-              className="flex items-center hover:text-gray-500 gap-1 cursor-pointer"
+              className="flex items-center hover:text-gray-900 text-[16px] text-[#232321] font-semibold cursor-pointer"
             >
-              Pages <ChevronDown size={16} />
+            Men <MdOutlineArrowDropDown size={24} />
             </button>
           </div>
 
@@ -43,43 +42,71 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setTemplateOpen(!templateOpen)}
-              className="flex items-center hover:text-gray-500 gap-1 cursor-pointer"
+              className="flex items-center hover:text-gray-900 text-[16px] text-[#232321] font-semibold cursor-pointer"
             >
-              Template <ChevronDown size={16} />
+              Women<MdOutlineArrowDropDown size={24} />
             </button>
           </div>
-          <AppButton
+          {/* <AppButton
             className="px-4 py-2 rounded-lg bg-[#D3EFA2]! hover:bg-[#B7DB7D]!"
             title="Request demo"
-          />
+          /> */}
+         {/* Brand */}
         </div>
+        {/* center brand logo */}
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/images/kick_logo.png"
+            alt="Kicks Logo"
+            width={128}
+            height={32}
+          />
+        </Link>
+        {/* end items */}
+        <div className="flex items-center gap-10">
 
+      {/* Search Input with Icon */}
+      <div className="relative">
+        <Input
+          type="text"
+          className="pl-4 border-none shadow-none"
+        />
+                <FiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-xl" />
+
+      </div>
+
+      {/* User Icon */}
+      <div className="text-xl cursor-pointer">
+        <FaUser />
+      </div>
+
+      {/* Yellow Circular Button */}
+      <Button className="bg-[#FFA52F] hover:bg-yellow-500 text-black text-[16px] rounded-full w-10 h-10 p-0 mr-10">
+        0
+      </Button>
+
+    </div>
+     
         {/* Mobile Menu Button */}
         <button
           className="md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X size={28} /> : <Menu size={28} />}
+          {mobileOpen ? <ImCancelCircle size={28} /> : <IoMdMenu size={28} />}
         </button>
       </nav>
 
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden bg-white shadow px-6 py-4 flex flex-col space-y-4">
-          <Link href="/" className="hover:text-blue-600">
-            Home
+                <Link href="/" className="hover:text-gray-900 text-[16px] text-[#232321] font-semibold">
+             New Drops 🔥
           </Link>
-          <Link href="/about-01" className="hover:text-blue-600">
-            About
+           <Link href="/" className="hover:text-gray-900 flex text-[16px] text-[#232321] font-semibold">
+                      Men <MdOutlineArrowDropDown size={24} />
           </Link>
-          <Link href="/features-01" className="hover:text-blue-600">
-            Features
-          </Link>
-          <Link
-            href="/request-demo"
-            className="px-4 py-2 rounded-lg bg-[#B7DB7D] text-white hover:bg-blue-700 transition text-center"
-          >
-            Request Demo
+            <Link href="/" className="hover:text-gray-900 flex text-[16px] text-[#232321] font-semibold">
+     Women <MdOutlineArrowDropDown size={24} />
           </Link>
         </div>
       )}
