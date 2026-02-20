@@ -3,8 +3,8 @@ import Navbar from "./components/shared/Navbar";
 
 export default function Home() {
   return (
-    <div className="max-w-330 w-full mx-auto">
-      <Navbar />
+    <div >
+    
       <main className="mt-22 xl:mt-36">
         {/* Banner Title */}
         <h1 className="uppercase font-bold text-[60px] sm:text-7xl md:text-9xl xl:text-[212px] flex justify-between w-full">

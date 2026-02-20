@@ -47,10 +47,7 @@ export default function Navbar() {
               Women<MdOutlineArrowDropDown size={24} />
             </button>
           </div>
-          {/* <AppButton
-            className="px-4 py-2 rounded-lg bg-[#D3EFA2]! hover:bg-[#B7DB7D]!"
-            title="Request demo"
-          /> */}
+        
          {/* Brand */}
         </div>
         {/* center brand logo */}

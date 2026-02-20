@@ -12,7 +12,7 @@ export default function AppButton({
   return (
     <Link
       href="/#"
-      className={`p-1.5 px-4 rounded-full bg-[#F1F1F1] ${className}`}
+      className={`xl:py-4 py-2 md:py-3 px-4 md:px-6 xl:px-8 font-medium text-[14px] text-white rounded-xl bg-[#4A69E2] ${className}`}
     >
       {title}
     </Link>
