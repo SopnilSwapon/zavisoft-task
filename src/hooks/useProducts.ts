@@ -38,7 +38,6 @@ export function useProducts() {
   return {
     ...state,
     refetch: () => {
-      // manual refetch still works
       return productService
         .getAll()
         .then((data) => setState({ data, loading: false, error: null }))

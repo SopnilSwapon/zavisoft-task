@@ -29,7 +29,7 @@ export default function ProductCard(product: TProduct) {
 
       {/* View Product Button */}
       <Link
-        href={"#"}
+        href={`/products/${product.id}`}
         className="w-full bg-black hover:bg-[#222] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 py-3 rounded-md transition-colors duration-200"
       >
         View Product – <span className="text-[#FFA52F]">${product.price}</span>

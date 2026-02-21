@@ -22,10 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${rubik.variable} antialiased  bg-[#E7E7E3] max-w-330 w-full mx-auto`}>
-          <Navbar />
-        {children}
-        <AppFooter/>
+      <body
+        className={`${rubik.variable} antialiased  bg-[#E7E7E3] max-w-330 w-full mx-auto`}
+      >
+        <Navbar />
+        <div className="mt-22 xl:mt-36">{children}</div>
+        <AppFooter />
       </body>
     </html>
   );

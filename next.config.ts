@@ -16,7 +16,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "api.lorem.space",
       },
-      // Add any other hostnames you see in the API response images array
+      {
+        protocol: "https",
+        hostname: "pravatar.cc",
+      },
     ],
   },
 };
