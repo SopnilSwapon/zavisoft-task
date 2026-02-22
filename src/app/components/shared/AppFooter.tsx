@@ -8,8 +8,14 @@ import { SiTiktok } from "react-icons/si";
 import Image from "next/image";
 import Link from "next/link";
 
-
-const categories = ["Runners", "Sneakers", "Basketball", "Outdoor", "Golf", "Hiking"];
+const categories = [
+  "Runners",
+  "Sneakers",
+  "Basketball",
+  "Outdoor",
+  "Golf",
+  "Hiking",
+];
 const company = ["About", "Contact", "Blogs"];
 
 export default function AppFooter() {
@@ -42,13 +48,13 @@ export default function AppFooter() {
           <div className="shrink-0 md:pr-40 pr-0">
             <span className="text-white font-extrabold text-6xl md:text-7xl uppercase tracking-tight relative">
               <Link href="/" className="flex items-center">
-          <Image
-            src="/images/kick_white_logo.png"
-            alt="Kicks Logo"
-            width={351}
-            height={88}
-          />
-        </Link>
+                <Image
+                  src="/images/kick_white_logo.png"
+                  alt="Kicks Logo"
+                  width={351}
+                  height={88}
+                />
+              </Link>
               <span className="absolute -top-4 -right-6 w-7 h-7 bg-orange-400 rounded-full text-[12px] flex items-center justify-center text-gray-500 font-bold">
                 +
               </span>
@@ -62,20 +68,24 @@ export default function AppFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About Us */}
           <div className="md:col-span-1">
-            <h3 className="text-[#FFA52F] font-semibold text-2xl mb-3">About us</h3>
-            <p className="text-[#E7E7E3] text-xl font-semibold">
-              We are the biggest hyperstore in the universe. We got you all cover with our exclusive
-              collections and latest drops.
+            <h3 className="text-[#FFA52F] font-semibold text-xl md:text-2xl mb-3">
+              About us
+            </h3>
+            <p className="text-[#E7E7E3] text-[16px] md:text-xl font-semibold">
+              We are the biggest hyperstore in the universe. We got you all
+              cover with our exclusive collections and latest drops.
             </p>
           </div>
 
           {/* Categories */}
           <div>
-            <h3 className="text-[#FFA52F] font-semibold text-2xl mb-3">Categories</h3>
+            <h3 className="text-[#FFA52F] font-semibold text-xl md:text-2xl mb-3">
+              Categories
+            </h3>
             <ul className="space-y-2">
               {categories.map((item) => (
                 <li key={item}>
-                       <p className="text-[#E7E7E3] text-xl font-semibold">
+                  <p className="text-[#E7E7E3] text-[16px] md:text-xl font-semibold">
                     {item}
                   </p>
                 </li>
@@ -85,11 +95,13 @@ export default function AppFooter() {
 
           {/* Company */}
           <div>
-            <h3 className="text-[#FFA52F] font-semibold text-2xl mb-3">Company</h3>
+            <h3 className="text-[#FFA52F] font-semibold text-xl md:text-2xl mb-3">
+              Company
+            </h3>
             <ul className="space-y-2">
               {company.map((item) => (
                 <li key={item}>
-                  <p className="text-[#E7E7E3] text-xl font-semibold">
+                  <p className="text-[#E7E7E3] text-[16px] md:text-xl font-semibold">
                     {item}
                   </p>
                 </li>
@@ -99,7 +111,9 @@ export default function AppFooter() {
 
           {/* Follow Us */}
           <div>
-            <h3 className="text-[#FFA52F] font-semibold text-2xl mb-3">Follow us</h3>
+            <h3 className="text-[#FFA52F] font-semibold text-xl md:text-2xl mb-3">
+              Follow us
+            </h3>
             <div className="flex items-center gap-3">
               {[
                 { icon: <Facebook size={18} />, href: "#" },
@@ -110,7 +124,7 @@ export default function AppFooter() {
                 <a
                   key={i}
                   href={social.href}
-                 className="text-[#E7E7E3] text-xl font-semibold"
+                  className="text-[#E7E7E3] text-[16px] md:text-xl font-semibold"
                 >
                   {social.icon}
                 </a>
@@ -121,20 +135,20 @@ export default function AppFooter() {
 
         {/* Big KICKS watermark text */}
         <div className="overflow-hidden">
-         <Image
-                 src="/images/footerLogo.png"
-                 alt="kicks footer logo"
-                 width={1320}
-                 height={500}
-                 priority
-               />
+          <Image
+            src="/images/footerLogo.png"
+            alt="kicks footer logo"
+            width={1320}
+            height={500}
+            priority
+          />
         </div>
 
         {/* Copyright */}
       </div>
-        <div className="text-center bg-[#E7E7E3]  py-3 md:py-4 xl:py-4.5">
-          <p className="text-black text-[16px]">© All rights reserved</p>
-        </div>
+      <div className="text-center bg-[#E7E7E3] py-3 md:py-4 xl:py-4.5">
+        <p className="text-black text-[16px]">© All rights reserved</p>
+      </div>
     </footer>
   );
 }

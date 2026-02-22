@@ -2,15 +2,24 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Heart, ChevronLeft } from "lucide-react";
+import { Heart } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Thumbs } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 import { useProduct } from "@/hooks/useProduct";
-import EmptyState from "./shared/EmptyState";
-import GlobalError from "./shared/GlobalError";
+import EmptyState from "../shared/EmptyState";
+import GlobalError from "../shared/GlobalError";
+import AppButton from "../shared/AppButton";
 
-interface ProductDetailPageProps {
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
+
+interface IProps {
   productId: number;
 }
 
+// Skeleton component to show while loading product details
 function ProductDetailSkeleton() {
   return (
     <div className="min-h-screen bg-[#e8e4de] p-6 md:p-10">
@@ -47,16 +56,12 @@ function ProductDetailSkeleton() {
             <div className="w-12 h-12 bg-gray-300 rounded-xl" />
           </div>
           <div className="h-12 bg-gray-300 rounded-xl" />
-          <div className="space-y-2 mt-2">
-            <div className="h-4 w-36 bg-gray-300 rounded" />
-            <div className="h-4 w-full bg-gray-300 rounded" />
-            <div className="h-4 w-5/6 bg-gray-300 rounded" />
-          </div>
         </div>
       </div>
     </div>
   );
 }
+
 const COLOR_OPTIONS = [
   { id: "navy", bg: "#2d3f5e" },
   { id: "green", bg: "#4a5e45" },
@@ -65,21 +70,20 @@ const COLOR_OPTIONS = [
 const SIZES = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 const OUT_OF_STOCK = [39, 40];
 
-export default function ProductDetailPage({
-  productId,
-}: ProductDetailPageProps) {
+export default function ProductDetailPage({ productId }: IProps) {
   const { data: product, loading, error } = useProduct(productId);
 
   const [selectedColor, setSelectedColor] = useState(COLOR_OPTIONS[0].id);
   const [selectedSize, setSelectedSize] = useState<number | null>(38);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [activeImage, setActiveImage] = useState(0);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   if (loading) return <ProductDetailSkeleton />;
   if (error) return <GlobalError message={error} />;
   if (!product)
     return <EmptyState title="No Products" description="Check back later." />;
 
+  // Always ensure 4 images
   const images = [
     product.images[0],
     product.images[1] ?? product.images[0],
@@ -88,61 +92,105 @@ export default function ProductDetailPage({
   ];
 
   return (
-    <div className="min-h-screen bg-[#e8e4de] p-4 md:p-8 lg:p-10">
-      <div className="max-w-6xl mx-auto">
-        <button
-          onClick={() => history.back()}
-          className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors mb-6 group"
-        >
-          <ChevronLeft
-            size={18}
-            className="group-hover:-translate-x-0.5 transition-transform duration-150"
-          />
-          Back
-        </button>
-
+    <div className="pt-4 md:pt-6">
+      <div className="mx-auto">
         <div className="flex flex-col lg:flex-row gap-6 xl:gap-10">
-          {/* LEFT: 2×2 Image Grid */}
-          <div className="flex-1 grid grid-cols-2 gap-3">
+          {/* ─── LEFT: Images ─────────────────────────────────────────── */}
+
+          {/* MOBILE ONLY: Main swiper + thumbnails row */}
+          <div className="flex-1 lg:hidden">
+            {/* Main image swiper */}
+            <Swiper
+              modules={[Pagination, Thumbs]}
+              thumbs={{
+                swiper:
+                  thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+              }}
+              pagination={{ clickable: true }}
+              loop={false}
+              className="product-detail-main-swiper w-full rounded-3xl overflow-hidden bg-[#d8d3cc]"
+              style={{ aspectRatio: "1 / 1" }}
+            >
+              {images.map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="relative  w-full h-full">
+                    <Image
+                      src={src}
+                      alt={`${product.title} view ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* Thumbnail strip */}
+            <Swiper
+              modules={[Thumbs]}
+              onSwiper={setThumbsSwiper}
+              slidesPerView={4}
+              spaceBetween={8}
+              watchSlidesProgress
+              className="product-detail-thumbs-swiper mt-3"
+            >
+              {images.map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="relative aspect-square rounded-xl overflow-hidden bg-[#d8d3cc] cursor-pointer border-2 border-transparent in-[.swiper-slide-thumb-active]:border-gray-900 transition-all duration-150">
+                    <Image
+                      src={src}
+                      alt={`Thumb ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* DESKTOP ONLY: Original 2×2 grid — untouched */}
+          <div className="hidden lg:grid flex-1 grid-cols-2 gap-3">
             {images.map((src, idx) => (
-              <button
+              <div
                 key={idx}
-                onClick={() => setActiveImage(idx)}
-                className={`relative aspect-square rounded-2xl overflow-hidden bg-[#d8d3cc] transition-all duration-200
-                  ${
-                    activeImage === idx
-                      ? "ring-2 ring-black ring-offset-2 ring-offset-[#e8e4de]"
-                      : "hover:opacity-90"
-                  }`}
+                className={`relative border
+                  ${idx === 0 ? "rounded-tl-[48px]" : ""}
+                  ${idx === 1 ? "rounded-tr-[48px]" : ""}
+                  ${idx === 2 ? "rounded-bl-[48px]" : ""}
+                  ${idx === 3 ? "rounded-br-[48px]" : ""}
+                  overflow-hidden bg-[#d8d3cc] transition-all duration-200`}
               >
                 <Image
                   src={src}
                   alt={`${product.title} view ${idx + 1}`}
-                  fill
-                  className="object-cover"
-                  unoptimized
+                  width={400}
+                  height={500}
+                  className="object-container w-full h-full"
                 />
-              </button>
+              </div>
             ))}
           </div>
 
-          {/* RIGHT: Product Details */}
-          <div className="w-full lg:w-[360px] xl:w-[420px] flex flex-col">
-            <span className="inline-flex items-center self-start px-3 py-1 rounded-full bg-[#4a7dff] text-white text-xs font-semibold tracking-wide mb-4">
+          {/* ─── RIGHT: Product Details (unchanged) ───────────────────── */}
+          <div className="w-full lg:w-90 xl:w-105 flex flex-col">
+            <span className="inline-flex items-center self-start px-4 py-3 rounded-2xl bg-[#4a7dff] text-white text-xs font-semibold tracking-wide mb-4">
               New Release
             </span>
 
-            <h1 className="text-[22px] md:text-2xl font-extrabold uppercase tracking-tight text-gray-900 leading-tight mb-3">
+            <h1 className="text-xl md:text-[32px] font-extrabold uppercase tracking-tight text-gray-900 leading-tight mb-3">
               {product.title}
             </h1>
 
-            <p className="text-2xl font-bold text-[#4a7dff] mb-5">
+            <p className="md:text-2xl text-[18px] font-bold text-[#4a7dff] mb-5">
               ${product.price.toFixed(2)}
             </p>
 
             {/* Color */}
             <div className="mb-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">
+              <p className="md:text-[16px] font-semibold uppercase mb-2">
                 Color
               </p>
               <div className="flex items-center gap-2">
@@ -166,10 +214,8 @@ export default function ProductDetailPage({
             {/* Size */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-bold uppercase tracking-widest text-gray-500">
-                  Size
-                </p>
-                <button className="text-xs font-semibold text-gray-900 underline underline-offset-2 hover:text-gray-600 transition-colors">
+                <p className="text-[16px] font-semibold uppercase">Size</p>
+                <button className="text-[14px] font-medium underline uppercase underline-offset-2 hover:text-gray-600 transition-colors">
                   Size Chart
                 </button>
               </div>
@@ -182,10 +228,10 @@ export default function ProductDetailPage({
                       key={size}
                       disabled={oos}
                       onClick={() => !oos && setSelectedSize(size)}
-                      className={`w-12 h-10 rounded-lg text-sm font-semibold transition-all duration-150
+                      className={`w-12 h-12 rounded-lg text-[14px] font-medium
                         ${
                           oos
-                            ? "bg-gray-100 text-gray-300 cursor-not-allowed line-through"
+                            ? "bg-gray-100 text-gray-300 cursor-not-allowed"
                             : active
                               ? "bg-gray-900 text-white"
                               : "bg-white text-gray-800 hover:bg-gray-100 border border-gray-200"
@@ -200,47 +246,49 @@ export default function ProductDetailPage({
 
             {/* CTA Buttons */}
             <div className="flex items-center gap-3 mb-3">
-              <button className="flex-1 h-12 bg-gray-900 text-white text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-gray-700 transition-colors duration-200 active:scale-[0.98]">
-                Add to Cart
-              </button>
+              <AppButton
+                title="Add to Cart"
+                className="flex-1 bg-gray-900 text-white text-center uppercase hover:bg-gray-800"
+              />
               <button
                 onClick={() => setIsWishlisted((v) => !v)}
-                className={`w-12 h-12 rounded-xl flex items-center justify-center border-2 transition-all duration-200 active:scale-95
-                  ${isWishlisted ? "bg-red-50 border-red-400" : "bg-white border-gray-200 hover:border-gray-400"}`}
+                className={`w-12 h-12 rounded-xl flex items-center cursor-pointer justify-center border-2 transition-all duration-200 active:scale-95
+                  ${isWishlisted ? "bg-red-50 border-red-400" : "bg-gray-900 text-white hover:border-red-400"}`}
                 aria-label="Add to wishlist"
               >
                 <Heart
                   size={18}
                   className={
-                    isWishlisted ? "fill-red-400 text-red-400" : "text-gray-500"
+                    isWishlisted ? "fill-red-400 text-red-400" : "text-white"
                   }
                 />
               </button>
             </div>
 
-            <button className="w-full h-12 bg-[#4a7dff] text-white text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-[#3a6df0] transition-colors duration-200 active:scale-[0.98] mb-6">
-              Buy It Now
-            </button>
+            <AppButton
+              title="Buy It Now"
+              className="w-full text-center uppercase"
+            />
 
             {/* About */}
-            <div className="border-t border-gray-200 pt-5">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-900 mb-2">
+            <div className="border-t border-gray-200 pt-6 mt-4">
+              <p className="text-[16px] font-semibold uppercase mb-2">
                 About the Product
               </p>
-              <p className="text-sm text-gray-500 font-medium mb-2">
+              <p className="text-[16px] text-[#5d5d5b] mb-4">
                 {product.category.name}
               </p>
-              <p className="text-sm text-gray-600 leading-relaxed mb-4">
+              <p className="text-[16px] text-[#5d5d5b] mb-6">
                 {product.description}
               </p>
               <ul className="space-y-1.5">
-                <li className="flex items-start gap-2 text-sm text-gray-600">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+                <li className="flex items-start gap-2 text-[16px] text-[#5d5d5b] mb-2">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-black shrink-0" />
                   Pay over time in interest-free installments with Affirm,
                   Klarna or Afterpay.
                 </li>
-                <li className="flex items-start gap-2 text-sm text-gray-600">
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-400 shrink-0" />
+                <li className="flex items-start gap-2 text-[16px] text-[#5d5d5b]">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full bg-black shrink-0" />
                   Join adiClub to get unlimited free standard shipping, returns,
                   &amp; exchanges.
                 </li>

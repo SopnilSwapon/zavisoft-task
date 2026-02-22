@@ -8,7 +8,7 @@ import { TProduct } from "@/types";
 export default function ProductCard(product: TProduct) {
   return (
     <div className="flex flex-col">
-      {/* Shadcn Card for image */}
+      {/* Product Card */}
       <Card className="bg-[#ECEDEF] border-6 border-white shadow-none rounded-2xl p-4">
         <span className=" bg-[#4A69E2] -ml-4 w-19 h-9 -mt-4 flex justify-center items-center text-center text-white text-[12px] font-semibold py-1 rounded-br-[16px] rounded-tl-[16px] z-10">
           New
@@ -22,9 +22,11 @@ export default function ProductCard(product: TProduct) {
         />
       </Card>
 
-      {/* Shoe Name */}
-      <h3 className="text-gray-900 font-extrabold uppercase text-sm leading-tight mt-3 mb-3">
-        {product.title}
+      {/* Product Name */}
+      <h3 className="text-gray-900 font-extrabold uppercase text-sm  mt-3 mb-3">
+        {product.title.split(" ").length > 4
+          ? product.title.split(" ").slice(0, 4).join(" ") + "..."
+          : product.title}
       </h3>
 
       {/* View Product Button */}
