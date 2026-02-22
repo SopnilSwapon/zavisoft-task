@@ -21,7 +21,7 @@ export default function CartPage() {
 
   const orderTotal = cart.price + DELIVERY_FEE;
 
-  const handleRemove = () => {
+  const handleRemoveAllItems = () => {
     setCart({
       items: 0,
       price: 0,
@@ -34,7 +34,7 @@ export default function CartPage() {
   // Empty cart state
   if (!cart.items || !latestImage) {
     return (
-      <div className="min-h-screen bg-[#f2f0ed] flex items-center justify-center px-4">
+      <div className=" bg-[#f2f0ed] flex items-center justify-center px-4">
         <div className="text-center">
           <h2 className="text-2xl font-extrabold uppercase tracking-tight text-gray-900 mb-2">
             Your Bag is Empty
@@ -55,7 +55,7 @@ export default function CartPage() {
 
   return (
     <div>
-      <div className="mx-auto py-8 md:py-12">
+      <div className="pt-3 md:pt-8">
         {/* ── Promo Banner ───────────────────────────────────────────── */}
         <div className="mb-6">
           <h1 className="lg:text-[32px] text-2xl font-semibold text-gray-900 mb-2">
@@ -151,7 +151,7 @@ export default function CartPage() {
                     <Heart size={28} />
                   </button>
                   <button
-                    onClick={handleRemove}
+                    onClick={handleRemoveAllItems}
                     title="Remove all items"
                     className="hover:text-black cursor-pointer text-gray-600 transition-colors"
                     aria-label="Remove item"

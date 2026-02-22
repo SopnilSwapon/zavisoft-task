@@ -106,7 +106,7 @@ export default function ProductDetailPage({ productId }: IProps) {
   ];
 
   return (
-    <div className="pt-4 md:pt-6">
+    <div className="pt-3 md:pt-8">
       <div className="mx-auto">
         <div className="flex flex-col lg:flex-row gap-6 xl:gap-10">
           {/* ─── LEFT: Images ─────────────────────────────────────────── */}
@@ -267,7 +267,7 @@ export default function ProductDetailPage({ productId }: IProps) {
               />
               <button
                 onClick={() => setIsWishlisted((v) => !v)}
-                className={`w-14 h-14 rounded-xl flex items-center cursor-pointer justify-center border-2 transition-all duration-200 active:scale-95
+                className={`md:w-12 md:h-12 lg:h-14 lg:w-14 w-10 h-10 rounded-xl flex items-center cursor-pointer justify-center border-2 transition-all duration-200 active:scale-95
                   ${isWishlisted ? "bg-red-50 border-red-400" : "bg-gray-900 text-white hover:border-red-400"}`}
                 aria-label="Add to wishlist"
               >

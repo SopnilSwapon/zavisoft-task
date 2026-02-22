@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
@@ -35,26 +34,24 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-1">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star
-          key={i}
-          size={16}
-          className="fill-amber-400 text-amber-400"
-        />
+        <Star key={i} size={16} className="fill-amber-400 text-amber-400" />
       ))}
-      <span className="text-sm font-semibold text-gray-700 ml-1">{rating.toFixed(1)}</span>
+      <span className="text-sm font-semibold text-gray-700 ml-1">
+        {rating.toFixed(1)}
+      </span>
     </div>
   );
 }
 
 export default function ReviewsSection() {
   return (
-    <section className="w-full py-10">
+    <section className="w-full my-4 md:my-20 lg:my-32">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-5xl md:text-6xl xl-text-[74px] font-semibold uppercase tracking-tight text-gray-900">
+      <div className="flex items-center justify-between mb-4 md:mb-8">
+        <h2 className="text-2xl md:text-5xl xl-text-[74px] font-semibold uppercase tracking-tight text-gray-900">
           Reviews
         </h2>
-       <AppButton title="See All"/>
+        <AppButton title="See All" />
       </div>
 
       {/* Cards Grid */}
@@ -67,8 +64,12 @@ export default function ReviewsSection() {
             {/* Top: text content */}
             <div className="flex items-start justify-between px-5 pt-5 pb-4">
               <div className="flex flex-col gap-1">
-                <h3 className="font-semibold text-2xl text-gray-900">{review.title}</h3>
-                <p className="text-gray-500 text-[16px] leading-snug">{review.text}</p>
+                <h3 className="font-semibold text-2xl text-gray-900">
+                  {review.title}
+                </h3>
+                <p className="text-gray-500 text-[16px] leading-snug">
+                  {review.text}
+                </p>
                 <div className="mt-2">
                   <StarRating rating={review.rating} />
                 </div>

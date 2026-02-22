@@ -5,7 +5,7 @@ import { Pagination, Grid } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import ProductCard from "../shared/ProductCard";
 import { useProducts } from "@/hooks/useProducts";
-import AppLoader from "../shared/AppLoader";
+import ProductCardSkeleton from "../shared/ProductCardSkeleton";
 import GlobalError from "../shared/GlobalError";
 import EmptyState from "../shared/EmptyState";
 
@@ -25,13 +25,13 @@ export default function YouMayAlsoLikeSection() {
     setIsEnd(swiper.isEnd);
   };
 
-  if (loading) return <AppLoader text="Products Loading..." />;
+  if (loading) return <ProductCardSkeleton />;
   if (error) return <GlobalError message={error} onRetry={refetch} />;
   if (!products?.length)
     return <EmptyState title="No Products" description="Check back later." />;
 
   return (
-    <section className="w-full py-10">
+    <section className="w-full my-4 md:my-20 lg:my-32">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-gray-900">

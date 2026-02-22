@@ -1,16 +1,19 @@
 import ProductDetailPage from "@/app/components/productDetails/ProductDetails";
 import YouMayAlsoLikeSection from "@/app/components/productDetails/YouMayAlsoLikeSec";
 
-interface PageProps {
+interface IPageProps {
   params: Promise<{ id: string }>;
 }
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params }: IPageProps) {
   const { id } = await params;
-  return(<div>
 
-    <ProductDetailPage productId={Number(id)} />;
-    <YouMayAlsoLikeSection/>
-  </div>) 
-  
+  return (
+    <div>
+      {/* Specific product details */}
+      <ProductDetailPage productId={Number(id)} />
+      {/* More Products Section */}
+      <YouMayAlsoLikeSection />
+    </div>
+  );
 }

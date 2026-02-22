@@ -30,8 +30,6 @@ export default function BannerImageSection() {
           priority
         />
 
-        {/* Dark overlay for text readability */}
-
         {/* Vertical rotated label - top left */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2">
           <div
