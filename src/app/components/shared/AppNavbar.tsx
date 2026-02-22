@@ -18,7 +18,7 @@ export default function AppNavbar() {
   const { cart } = useCart();
 
   return (
-    <nav className="fixed max-w-330 w-full md:h-16 xl:h-24 h-13 top-4 md:top-6 xl:top-8 z-50">
+    <nav className="fixed max-w-330 pr-8 w-full md:h-16 xl:h-24 h-13 top-4 md:top-6 xl:top-8 z-50">
       <nav className="text-[15px] w-full bg-[#FFFFFF] border p-4 md:p-6 xl:p-8 border-[#adadad33] rounded-xl mx-auto flex items-center justify-between">
         {/* Mobile menu button */}
         <button

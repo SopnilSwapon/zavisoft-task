@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${rubik.variable} antialiased  bg-[#E7E7E3] max-w-330 w-full mx-auto p-4 pb-0 md:p-0`}
+        className={`${rubik.variable} antialiased  bg-[#E7E7E3] max-w-330 w-full mx-auto p-4 pb-0`}
       >
         <CartProvider>
           <AppNavbar />

@@ -7,7 +7,7 @@ This project integrates the Platzi Fake Store API to display products, categorie
 
 ## Live Demo
 
-(put your live link here)
+- zavisoft-task-omega.vercel.app
 
 ---
 
