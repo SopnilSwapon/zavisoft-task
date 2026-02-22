@@ -13,16 +13,17 @@ export default function ProductCard(product: TProduct) {
         <span className=" bg-[#4A69E2] -ml-4 w-19 h-9 -mt-4 flex justify-center items-center text-center text-white text-[12px] font-semibold py-1 rounded-br-[16px] rounded-tl-[16px] z-10">
           New
         </span>
-        <Image
-          src={product.images[0]}
-          alt={product.title}
-          width={220}
-          height={160}
-          className="object-contain w-full h-full rounded-lg"
-        />
+        <div className="transition-all duration-300 hover:scale-105">
+          <Image
+            src={product.images[0]}
+            alt={product.title}
+            width={220}
+            height={160}
+            className="object-contain w-full h-full rounded-lg"
+          />
+        </div>
       </Card>
 
-      {/* Product Name */}
       <h3 className="text-gray-900 font-extrabold uppercase text-sm  mt-3 mb-3">
         {product.title.split(" ").length > 4
           ? product.title.split(" ").slice(0, 4).join(" ") + "..."

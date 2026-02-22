@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import AppButton from "../shared/AppButton";
 
 const thumbnails = [
@@ -30,7 +29,7 @@ export default function BannerImageSection() {
           priority
         />
 
-        {/* Vertical rotated label - top left */}
+        {/* Vertical rotated label  top left */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2">
           <div
             className="bg-black/80 text-white text-[10px] font-medium tracking-widest uppercase px-2 py-4"

@@ -2,20 +2,20 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-type CartType = {
+interface ICartType {
   items: number;
   price: number;
   title: string;
   description: string;
   images: string[];
-};
+}
 
-type CartContextType = {
-  cart: CartType;
-  setCart: React.Dispatch<React.SetStateAction<CartType>>;
-};
+interface ICartContextType {
+  cart: ICartType;
+  setCart: React.Dispatch<React.SetStateAction<ICartType>>;
+}
 
-const defaultCart: CartType = {
+const defaultCart: ICartType = {
   items: 0,
   price: 0,
   images: [],
@@ -23,10 +23,10 @@ const defaultCart: CartType = {
   description: "",
 };
 
-const CartContext = createContext<CartContextType | null>(null);
+const CartContext = createContext<ICartContextType | null>(null);
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cart, setCart] = useState<CartType>(() => {
+  const [cart, setCart] = useState<ICartType>(() => {
     // runs only once
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");

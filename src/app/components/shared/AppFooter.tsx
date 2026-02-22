@@ -24,7 +24,7 @@ export default function AppFooter() {
       {/* Newsletter Banner */}
       <div className="bg-[#4A69E2] rounded-2xl rounded-b-none px-8 py-16 mb-0">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-10">
-          {/* Left: Text + Form */}
+          {/* Left side */}
           <div className="flex-1">
             <h2 className="text-white text-3xl md:text-4xl xl:text-5xl font-extrabold uppercase leading-tight mb-2">
               Join our KicksPlus <br /> Club &amp; get 15% off
@@ -44,7 +44,7 @@ export default function AppFooter() {
             </div>
           </div>
 
-          {/* Right: KICKS logo */}
+          {/* Kicks logo in right side */}
           <div className="shrink-0 md:pr-40 pr-0">
             <span className="text-white font-extrabold text-6xl md:text-7xl uppercase tracking-tight relative">
               <Link href="/" className="flex items-center">

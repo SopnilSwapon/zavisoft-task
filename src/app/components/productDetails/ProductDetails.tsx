@@ -1,22 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Heart } from "lucide-react";
+
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Thumbs } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
+
 import { useProduct } from "@/hooks/useProduct";
 import EmptyState from "../shared/EmptyState";
 import GlobalError from "../shared/GlobalError";
 import AppButton from "../shared/AppButton";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/thumbs";
 import { useCart } from "@/context/CardContext";
-import { navigate } from "next/dist/client/components/segment-cache/navigation";
-import { useRouter } from "next/navigation";
 
 interface IProps {
   productId: number;
@@ -74,14 +75,15 @@ const SIZES = [38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 const OUT_OF_STOCK = [39, 40];
 
 export default function ProductDetailPage({ productId }: IProps) {
-  const { data: product, loading, error } = useProduct(productId);
-
   const [selectedColor, setSelectedColor] = useState(COLOR_OPTIONS[0].id);
   const [selectedSize, setSelectedSize] = useState<number | null>(38);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const { setCart } = useCart();
+
   const router = useRouter();
+
+  const { data: product, loading, error } = useProduct(productId);
+  const { setCart } = useCart();
 
   const handleAddToCart = () => {
     setCart((prev) => ({
@@ -92,6 +94,7 @@ export default function ProductDetailPage({ productId }: IProps) {
       description: product?.description || "",
     }));
   };
+
   if (loading) return <ProductDetailSkeleton />;
   if (error) return <GlobalError message={error} />;
   if (!product)
@@ -109,9 +112,7 @@ export default function ProductDetailPage({ productId }: IProps) {
     <div className="pt-3 md:pt-8">
       <div className="mx-auto">
         <div className="flex flex-col lg:flex-row gap-6 xl:gap-10">
-          {/* ─── LEFT: Images ─────────────────────────────────────────── */}
-
-          {/* MOBILE ONLY: Main swiper + thumbnails row */}
+          {/* Mobile view*/}
           <div className="flex-1 lg:hidden">
             {/* Main image swiper */}
             <Swiper
@@ -127,7 +128,7 @@ export default function ProductDetailPage({ productId }: IProps) {
             >
               {images.map((src, idx) => (
                 <SwiperSlide key={idx}>
-                  <div className="relative  w-full h-full">
+                  <div className="relative w-full h-full">
                     <Image
                       src={src}
                       alt={`${product.title} view ${idx + 1}`}
@@ -140,7 +141,6 @@ export default function ProductDetailPage({ productId }: IProps) {
               ))}
             </Swiper>
 
-            {/* Thumbnail strip */}
             <Swiper
               modules={[Thumbs]}
               onSwiper={setThumbsSwiper}
@@ -165,7 +165,7 @@ export default function ProductDetailPage({ productId }: IProps) {
             </Swiper>
           </div>
 
-          {/* DESKTOP ONLY: Original 2×2 grid — untouched */}
+          {/* Desktop view*/}
           <div className="hidden lg:grid flex-1 grid-cols-2 gap-3">
             {images.map((src, idx) => (
               <div
@@ -182,13 +182,13 @@ export default function ProductDetailPage({ productId }: IProps) {
                   alt={`${product.title} view ${idx + 1}`}
                   width={400}
                   height={500}
-                  className="object-container w-full h-full"
+                  className="object-container w-full h-full transition-all duration-300 hover:scale-105"
                 />
               </div>
             ))}
           </div>
 
-          {/* ─── RIGHT: Product Details (unchanged) ───────────────────── */}
+          {/* ─── Right side product information*/}
           <div className="w-full lg:w-90 xl:w-105 flex flex-col">
             <span className="inline-flex items-center self-start px-4 py-3 rounded-2xl bg-[#4a7dff] text-white text-xs font-semibold tracking-wide mb-4">
               New Release

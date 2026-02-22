@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Grid } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+
 import ProductCard from "../shared/ProductCard";
 import { useProducts } from "@/hooks/useProducts";
 import ProductCardSkeleton from "../shared/ProductCardSkeleton";
@@ -14,11 +15,12 @@ import "swiper/css/pagination";
 import "swiper/css/grid";
 
 export default function YouMayAlsoLikeSection() {
-  const { data: products, loading, error, refetch } = useProducts();
-  const swiperRef = useRef<SwiperType | null>(null);
-
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const { data: products, loading, error, refetch } = useProducts();
 
   const updateNavState = (swiper: SwiperType) => {
     setIsBeginning(swiper.isBeginning);
@@ -32,7 +34,6 @@ export default function YouMayAlsoLikeSection() {
 
   return (
     <section className="w-full my-4 md:my-20 lg:my-32">
-      {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-tight text-gray-900">
           You may also like
@@ -87,17 +88,6 @@ export default function YouMayAlsoLikeSection() {
         </div>
       </div>
 
-      {/*
-        ─── MOBILE (< 768px) ───────────────────────────────────────────────
-        Grid: 2 columns × 2 rows = 4 cards per "page", swipe horizontally
-        Each swipe moves a full "page" of 4 cards.
-
-        ─── TABLET (768px–1023px) ──────────────────────────────────────────
-        Single row, 3 cards visible
-
-        ─── DESKTOP (≥ 1024px) ─────────────────────────────────────────────
-        Single row, 4 cards visible
-      */}
       <Swiper
         modules={[Pagination, Grid]}
         onSwiper={(swiper) => {
@@ -107,20 +97,20 @@ export default function YouMayAlsoLikeSection() {
         onSlideChange={(swiper) => updateNavState(swiper)}
         pagination={{
           clickable: true,
-          dynamicBullets: true, // ← shows max ~5 dots, rest are hidden — clean!
+          dynamicBullets: true,
         }}
-        // Mobile: 2-col × 2-row grid
+        // Mobile view 2-col × 2-row grid
         grid={{ rows: 2, fill: "row" }}
         slidesPerView={2}
         spaceBetween={12}
         breakpoints={{
-          // Tablet: back to single row, 3 cards
+          // Tablet view - back to single row, 3 cards
           768: {
             slidesPerView: 3,
             spaceBetween: 16,
             grid: { rows: 1, fill: "row" },
           },
-          // Desktop: single row, 4 cards
+          // Desktop view - single row, 4 cards
           1024: {
             slidesPerView: 4,
             spaceBetween: 16,
@@ -135,10 +125,6 @@ export default function YouMayAlsoLikeSection() {
           </SwiperSlide>
         ))}
       </Swiper>
-
-      <style jsx global>{`
-        /* ── Pagination wrapper ─────────────────────────────── */
-      `}</style>
     </section>
   );
 }

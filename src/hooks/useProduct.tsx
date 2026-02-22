@@ -8,7 +8,6 @@ export function useProduct(id: number) {
     loading: true,
     error: null,
   });
-  console.log("useProduct called with id:", id); // ← add this
 
   useEffect(() => {
     if (!id) return;

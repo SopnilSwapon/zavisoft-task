@@ -1,4 +1,4 @@
-interface EmptyStateProps {
+interface IEmptyStateProps {
   title?: string;
   description?: string;
 }
@@ -6,7 +6,7 @@ interface EmptyStateProps {
 export default function EmptyState({
   title = "No items found",
   description = "Try adjusting your filters.",
-}: EmptyStateProps) {
+}: IEmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-20 gap-2">
       <div className="text-5xl">📭</div>

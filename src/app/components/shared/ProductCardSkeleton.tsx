@@ -1,7 +1,6 @@
 export default function ProductCardSkeleton() {
   return (
     <div className="animate-pulse mt-4 md:mt-20">
-      {/* Top title  button skeleton */}
       <div className="flex items-end justify-between mb-6 md:mb-8">
         {/* Title skeleton */}
         <div className="space-y-2">
@@ -17,9 +16,7 @@ export default function ProductCardSkeleton() {
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="flex flex-col">
             <div className="bg-[#ECEDEF] border-6 border-white rounded-2xl p-4">
-              {/* Badge */}
               <div className="bg-gray-300 -ml-4 w-16 h-8 -mt-4 rounded-br-3xl rounded-tl-3xl" />
-              {/* Image skeleton */}
               <div className="mt-3 w-full h-60 bg-gray-300 rounded-lg" />
             </div>
 

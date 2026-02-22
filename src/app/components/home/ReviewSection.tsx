@@ -1,8 +1,10 @@
 import Image from "next/image";
-import { Card } from "@/components/ui/card";
 import { Star } from "lucide-react";
+
+import { Card } from "@/components/ui/card";
 import AppButton from "../shared/AppButton";
 
+// for now static data, later can be fetched from an API or database
 const reviews = [
   {
     id: 1,
@@ -30,6 +32,7 @@ const reviews = [
   },
 ];
 
+// created starts component to display the rating visually
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-1">
@@ -46,7 +49,6 @@ function StarRating({ rating }: { rating: number }) {
 export default function ReviewsSection() {
   return (
     <section className="w-full my-4 md:my-20 lg:my-32">
-      {/* Header */}
       <div className="flex items-center justify-between mb-4 md:mb-8">
         <h2 className="text-2xl md:text-5xl xl-text-[74px] font-semibold uppercase tracking-tight text-gray-900">
           Reviews
@@ -54,14 +56,13 @@ export default function ReviewsSection() {
         <AppButton title="See All" />
       </div>
 
-      {/* Cards Grid */}
+      {/* Reviews Cards*/}
       <div className="grid grid-cols-1 border md:grid-cols-3 gap-5">
         {reviews.map((review) => (
           <Card
             key={review.id}
             className="overflow-hidden border-none rounded-[30px] bg-white p-0"
           >
-            {/* Top: text content */}
             <div className="flex items-start justify-between px-5 pt-5 pb-4">
               <div className="flex flex-col gap-1">
                 <h3 className="font-semibold text-2xl text-gray-900">
@@ -84,9 +85,8 @@ export default function ReviewsSection() {
                 />
               </div>
             </div>
-
-            {/* Bottom: shoe image */}
-            <div className="relative w-full">
+            {/* Images */}
+            <div className="relative w-full transition-all duration-300 hover:scale-105">
               <Image
                 src={review.shoeImage}
                 alt="Reviewed shoe"

@@ -7,6 +7,7 @@ import { useCart } from "@/context/CardContext";
 import YouMayAlsoLikeSection from "@/app/components/productDetails/YouMayAlsoLikeSec";
 import { IoTrashBinOutline } from "react-icons/io5";
 
+//  Static values for simplicity, can be dynamic in a real app
 const DELIVERY_FEE = 6.99;
 const STATIC_SIZE = 10;
 const PROMO_BANNER =
@@ -15,7 +16,7 @@ const PROMO_BANNER =
 export default function CartPage() {
   const { cart, setCart } = useCart();
 
-  // Always show the LAST image added
+  // Always show the LAST image added to the cart for now.
   const latestImage =
     cart.images.length > 0 ? cart.images[cart.images.length - 1] : null;
 
@@ -34,7 +35,7 @@ export default function CartPage() {
   // Empty cart state
   if (!cart.items || !latestImage) {
     return (
-      <div className=" bg-[#f2f0ed] flex items-center justify-center px-4">
+      <div className=" flex items-center justify-center py-20 px-4">
         <div className="text-center">
           <h2 className="text-2xl font-extrabold uppercase tracking-tight text-gray-900 mb-2">
             Your Bag is Empty
@@ -56,7 +57,6 @@ export default function CartPage() {
   return (
     <div>
       <div className="pt-3 md:pt-8">
-        {/* ── Promo Banner ───────────────────────────────────────────── */}
         <div className="mb-6">
           <h1 className="lg:text-[32px] text-2xl font-semibold text-gray-900 mb-2">
             Saving to celebrate
@@ -81,9 +81,7 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* ── Main Layout ─────────────────────────────────────────────── */}
         <div className="flex flex-col lg:flex-row gap-6 items-start">
-          {/* ── LEFT: Your Bag ─────────────────────────────────────────── */}
           <div className="w-full lg:flex-1 bg-white rounded-2xl p-5 md:p-7 shadow-sm">
             <h2 className="text-2xl md:text-[32px] font-semibold uppercase tracking-tight text-gray-900 mb-1">
               Your Bag
@@ -92,9 +90,8 @@ export default function CartPage() {
               Items in your bag not reserved- check out now to make them yours.
             </p>
 
-            {/* Single cart entry — always shows latest title + last image */}
+            {/* Single cart entry — always shows latest title & last image for now */}
             <div className="flex gap-4">
-              {/* Product Image — always images[images.length - 1] */}
               <div className="relative rounded-xl overflow-hidden bg-[#e8e4de] shrink-0">
                 <Image
                   src={latestImage}
@@ -105,9 +102,8 @@ export default function CartPage() {
                 />
               </div>
 
-              {/* Product Info */}
+              {/* Product Information */}
               <div className="flex-1 min-w-0">
-                {/* Title + Price */}
                 <div className="flex flex-col md:flex-row items-start justify-between gap-2 mb-1">
                   <h3 className="text-xl md:text-2xl font-semibold text-gray-900 leading-tight">
                     {cart.title}
@@ -125,7 +121,6 @@ export default function CartPage() {
                   {cart.description}
                 </p>
 
-                {/* Size + Quantity */}
                 <div className="flex items-center gap-3 flex-wrap">
                   <div className="flex items-center gap-1 px-3 py-1.5 bg-white cursor-pointer hover:border-gray-400 transition-colors">
                     <span className="text-xs md:text-sm font-medium text-gray-500">
@@ -163,7 +158,7 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* ── RIGHT: Order Summary ────────────────────────────────────── */}
+          {/* Order Summary */}
           <div className="w-full lg:w-80 xl:w-96 bg-white rounded-2xl p-5 md:p-7 shadow-sm lg:sticky lg:top-6">
             <h2 className="text-2xl text-[32px] font-semibold text-gray-900 mb-5">
               Order Summary
@@ -217,6 +212,7 @@ export default function CartPage() {
           </div>
         </div>
       </div>
+      {/* More products  */}
       <YouMayAlsoLikeSection />
     </div>
   );
