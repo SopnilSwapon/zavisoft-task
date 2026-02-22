@@ -44,15 +44,13 @@ export default function BannerImageSection() {
 
         {/* Bottom left content */}
         <div className="absolute bottom-12 left-10 max-w-xl">
-          <h2 className="text-white text-4xl md:text-5xl font-extrabold uppercase  mb-3">
+          <h2 className="text-white text-2xl md:text-5xl font-extrabold uppercase  mb-3">
             Nike Air Max
           </h2>
-          <p className="text-white/80 text-[16px] font-medium mb-6 ">
-            Nike introducing the new air max for everyone&apos;s comfort
+          <p className="text-white/80 text-sm md:text-base font-medium mb-6 ">
+            Nike introducing the new air max <br /> for everyone&apos;s comfort
           </p>
-          <AppButton
-            title="Shop Now"
-          />
+          <AppButton title="Shop Now" />
         </div>
 
         {/* Right side thumbnails */}
@@ -60,14 +58,9 @@ export default function BannerImageSection() {
           {thumbnails.map((thumb) => (
             <button
               key={thumb.id}
-              className="relative rounded-2xl overflow-hidden hover:border-white transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white"
+              className="relative rounded-2xl w-20 h-20 md:w-40  md:h-40 overflow-hidden hover:border-white transition-all duration-300 hover:scale-105"
             >
-              <Image
-                src={thumb.src}
-                alt={thumb.alt}
-                height={160}
-                width={160}
-              />
+              <Image src={thumb.src} alt={thumb.alt} height={160} width={160} />
             </button>
           ))}
         </div>

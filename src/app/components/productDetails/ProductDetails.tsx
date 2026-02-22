@@ -14,6 +14,9 @@ import AppButton from "../shared/AppButton";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/thumbs";
+import { useCart } from "@/context/CardContext";
+import { navigate } from "next/dist/client/components/segment-cache/navigation";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   productId: number;
@@ -77,7 +80,18 @@ export default function ProductDetailPage({ productId }: IProps) {
   const [selectedSize, setSelectedSize] = useState<number | null>(38);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const { setCart } = useCart();
+  const router = useRouter();
 
+  const handleAddToCart = () => {
+    setCart((prev) => ({
+      items: prev.items + 1,
+      price: prev.price + (product?.price || 0),
+      images: [...prev.images, product?.images[0] || ""],
+      title: product?.title || "",
+      description: product?.description || "",
+    }));
+  };
   if (loading) return <ProductDetailSkeleton />;
   if (error) return <GlobalError message={error} />;
   if (!product)
@@ -248,11 +262,12 @@ export default function ProductDetailPage({ productId }: IProps) {
             <div className="flex items-center gap-3 mb-3">
               <AppButton
                 title="Add to Cart"
+                onClick={handleAddToCart}
                 className="flex-1 bg-gray-900 text-white text-center uppercase hover:bg-gray-800"
               />
               <button
                 onClick={() => setIsWishlisted((v) => !v)}
-                className={`w-12 h-12 rounded-xl flex items-center cursor-pointer justify-center border-2 transition-all duration-200 active:scale-95
+                className={`w-14 h-14 rounded-xl flex items-center cursor-pointer justify-center border-2 transition-all duration-200 active:scale-95
                   ${isWishlisted ? "bg-red-50 border-red-400" : "bg-gray-900 text-white hover:border-red-400"}`}
                 aria-label="Add to wishlist"
               >
@@ -267,7 +282,10 @@ export default function ProductDetailPage({ productId }: IProps) {
 
             <AppButton
               title="Buy It Now"
-              className="w-full text-center uppercase"
+              onClick={() =>
+                router.push(`/products/${product.id}/buy-products`)
+              }
+              className="w-full text-center uppercase cursor-pointer"
             />
 
             {/* About */}

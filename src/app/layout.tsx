@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
 import AppFooter from "./components/shared/AppFooter";
-import Navbar from "./components/shared/Navbar";
+import AppNavbar from "./components/shared/AppNavbar";
+import { CartProvider } from "@/context/CardContext";
 
 const rubik = Rubik({
   variable: "--font-rubik",
@@ -25,9 +26,11 @@ export default function RootLayout({
       <body
         className={`${rubik.variable} antialiased  bg-[#E7E7E3] max-w-330 w-full mx-auto`}
       >
-        <Navbar />
-        <div className="mt-22 xl:mt-36">{children}</div>
-        <AppFooter />
+        <CartProvider>
+          <AppNavbar />
+          <div className="mt-22 sm:mt-30 xl:mt-36">{children}</div>
+          <AppFooter />
+        </CartProvider>
       </body>
     </html>
   );
